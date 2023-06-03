@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="123456">
+    <cancel id="1"/>   
+    <cancel id="4"/> <!--error: trans id has no open order or account id and trans id do not match-->
+    <cancel id="1"/> <!--error: trans id has no open order or account id and trans id do not match-->
+</transactions>

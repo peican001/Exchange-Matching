@@ -1,0 +1,3 @@
+Opened database successfully: STOCK_MARKET
+Closed database successfully: STOCK_MARKET
+Waiting for connection on port 12345

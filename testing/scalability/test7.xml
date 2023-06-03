@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="444444">
+    <query id="2"/> <!--error: Account not valid-->   
+    <cancel id="4"/> <!--error: Account not valid-->
+    <order sym="SPY" amount="400" limit="125"/> <!--error: Account not valid-->
+</transactions>

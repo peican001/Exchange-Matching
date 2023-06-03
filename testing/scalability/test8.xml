@@ -1,0 +1,7 @@
+<transactions id="333333">
+    <order sym="CP257" amount="-50" limit="128"/> <!--insufficient shares-->
+    <order sym="CP257" amount="2" limit="128"/> <!--insufficient balance-->
+    <order sym="CP257" amount="-5" limit="128"/>
+    <order sym="XL" amount="-5" limit="128"/> <!--error: insufficient shares-->
+    <order sym="XL" amount="1" limit="128"/> <!--error: symbol does not exist-->
+</transactions>

@@ -1,0 +1,335 @@
+--------------------------------For ./server------------------------------------------------------
+server_1  | Server started.......
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Waiting for connection on port 12345
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 618
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <create>
+server_1  |     <account id="123456" balance="100000000"/> 
+server_1  |     <account id="222222" balance="100000000"/>
+server_1  |     <account id="333333" balance="200"/>
+server_1  |     <account id="333333" balance="100000000"/> <!--error: Account creation failed-->
+server_1  |     <symbol sym="SPY">
+server_1  |         <account id="123456">100000</account>
+server_1  |         <account id="222222">100000</account>
+server_1  |         <account id="444444">100000</account> <!--error: Symbol creation failed-->
+server_1  |     </symbol>
+server_1  |     <symbol sym="CP257">
+server_1  |         <account id="123456">100000</account>
+server_1  |         <account id="333333">10</account>
+server_1  |     </symbol>
+server_1  | </create>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML create Document received
+server_1  | Created account
+server_1  | Created account
+server_1  | Created account
+server_1  | sending error msg create accout failed to client ...
+db_1      | 2023-04-07 00:25:27.643 UTC [34] ERROR:  insert or update on table "position" violates foreign key constraint "position_account_id_fkey"
+db_1      | 2023-04-07 00:25:27.643 UTC [34] DETAIL:  Key (account_id)=(444444) is not present in table "account".
+db_1      | 2023-04-07 00:25:27.643 UTC [34] STATEMENT:  INSERT INTO POSITION (SYMBOL_NAME, ACCOUNT_ID, AMOUNT) VALUES ('SPY', '444444', '100000')ON CONFLICT ON CONSTRAINT POSITION_PK DO UPDATE SET AMOUNT = POSITION.AMOUNT + '100000', VERSION = POSITION.VERSION + 1;
+server_1  | ERROR:  insert or update on table "position" violates foreign key constraint "position_account_id_fkey"
+server_1  | DETAIL:  Key (account_id)=(444444) is not present in table "account".
+server_1  | 
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <created id="123456"/>
+server_1  |     <created id="222222"/>
+server_1  |     <created id="333333"/>
+server_1  |     <error id="333333">Account creation failed</error>
+server_1  |     <created sym="SPY" id="123456"/>
+server_1  |     <created sym="SPY" id="222222"/>
+server_1  |     <error sym="SPY" id="444444">Symbol creation failed</error>
+server_1  |     <created sym="CP257" id="123456"/>
+server_1  |     <created sym="CP257" id="333333"/>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 230
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <transactions id="123456">
+server_1  |     <order sym="SPY" amount="300" limit="125"/>
+server_1  |     <order sym="SPY" amount="-100" limit="130"/>
+server_1  |     <order sym="SPY" amount="200" limit="127"/>
+server_1  | </transactions>
+server_1  | 
+server_1  | 
+server_1  | 
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Order: sym = SPY, amount = 300, limit = 125
+server_1  | insert amount:300
+server_1  | 
+server_1  | Order: sym = SPY, amount = -100, limit = 130
+server_1  | insert amount:-100
+server_1  | Order: sym = SPY, amount = 200, limit = 127
+server_1  | insert amount:200
+server_1  | 
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <opened sym="SPY" amount="300" limit="125" id="1"/>
+server_1  |     <opened sym="SPY" amount="-100" limit="130" id="2"/>
+server_1  |     <opened sym="SPY" amount="200" limit="127" id="3"/>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 189
+server_1  | <transactions id="222222">
+server_1  |     <order sym="SPY" amount="-500" limit="128"/>
+server_1  |     <order sym="SPY" amount="-200" limit="140"/>
+server_1  |     <order sym="SPY" amount="400" limit="125"/>
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Order: sym = SPY, amount = -500, limit = 128
+server_1  | insert amount:-500
+server_1  | Order: sym = SPY, amount = -200, limit = 140
+server_1  | insert amount:-200
+server_1  | Order: sym = SPY, amount = 400, limit = 125
+server_1  | insert amount:400
+server_1  | 
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <opened sym="SPY" amount="-500" limit="128" id="4"/>
+server_1  |     <opened sym="SPY" amount="-200" limit="140" id="5"/>
+server_1  |     <opened sym="SPY" amount="400" limit="125" id="6"/>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 131
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <transactions id="123456">
+server_1  |     <order sym="SPY" amount="-400" limit="124"/>
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Order: sym = SPY, amount = -400, limit = 124
+server_1  | insert amount:-400
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <opened sym="SPY" amount="-400" limit="124" id="7"/>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 252
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <transactions id="123456">
+server_1  |     <query id="1"/> <!--part open, part executed-->
+server_1  |     <query id="2"/>
+server_1  |     <query id="6"/> <!--error: trans id does not exist or account id and trans id do not match-->
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Query: trans_id = 1
+server_1  | Query: trans_id = 2
+server_1  | Query: trans_id = 6
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <status id="1">
+server_1  |         <open shares="100"/>
+server_1  |         <executed shares="200" price="124" time="1680827127"/>
+server_1  |     </status>
+server_1  |     <status id="2">
+server_1  |         <open shares="-100"/>
+server_1  |     </status>
+server_1  |     <error id="6">query trans id does not exist or account id and trans id do not match!</error>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 310
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <transactions id="123456">
+server_1  |     <cancel id="1"/>   
+server_1  |     <cancel id="4"/> <!--error: trans id has no open order or account id and trans id do not match-->
+server_1  |     <cancel id="1"/> <!--error: trans id has no open order or account id and trans id do not match-->
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Cancel: trans_id = 1
+server_1  | Cancel: trans_id = 4
+server_1  | Cancel: trans_id = 1
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <canceled id="1">
+server_1  |         <canceled shares="100" time="1680827127"/>
+server_1  |         <executed shares="200" price="124" time="1680827127"/>
+server_1  |     </canceled>
+server_1  |     <error id="4">cancel trans id has no open order or account id and trans id do not match!</error>
+server_1  |     <error id="1">cancel trans id has no open order or account id and trans id do not match!</error>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 270
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <transactions id="444444">
+server_1  |     <query id="2"/> <!--error: Account not valid-->   
+server_1  |     <cancel id="4"/> <!--error: Account not valid-->
+server_1  |     <order sym="SPY" amount="400" limit="125"/> <!--error: Account not valid-->
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Query: trans_id = 2
+server_1  | Cancel: trans_id = 4
+server_1  | Order: sym = SPY, amount = 400, limit = 125
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <error id="2">query failed due to invalid account</error>
+server_1  |     <error id="4">cancel failed due to invalid account</error>
+server_1  |     <error sym="SPY" amount="400" limit="125">Account not valid</error>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+server_1  | Accept client
+server_1  | Server received: 
+server_1  | 406
+server_1  | <transactions id="333333">
+server_1  |     <order sym="CP257" amount="-50" limit="128"/> <!--insufficient shares-->
+server_1  |     <order sym="CP257" amount="2" limit="128"/> <!--insufficient balance-->
+server_1  |     <order sym="CP257" amount="-5" limit="128"/>
+server_1  |     <order sym="XL" amount="-5" limit="128"/> <!--error: insufficient shares-->
+server_1  |     <order sym="XL" amount="1" limit="128"/> <!--error: symbol does not exist-->
+server_1  | </transactions>
+server_1  | 
+server_1  | msg is not chunked
+server_1  | Opened database successfully: STOCK_MARKET
+server_1  | XML transactions Document received
+server_1  | Order: sym = CP257, amount = -50, limit = 128
+server_1  | Order: sym = CP257, amount = 2, limit = 128
+server_1  | Order: sym = CP257, amount = -5, limit = 128
+server_1  | insert amount:-5
+server_1  | Order: sym = XL, amount = -5, limit = 128
+server_1  | Order: sym = XL, amount = 1, limit = 128
+server_1  | sending results: 
+server_1  | <?xml version="1.0" encoding="UTF-8"?>
+server_1  | <results>
+server_1  |     <error sym="CP257" amount="-50" limit="128">Insufficient shares</error>
+server_1  |     <error sym="CP257" amount="2" limit="128">Insufficient balance</error>
+server_1  |     <opened sym="CP257" amount="-5" limit="128" id="8"/>
+server_1  |     <error sym="XL" amount="-5" limit="128">Insufficient shares</error>
+server_1  |     <error sym="XL" amount="1" limit="128">Symbol does not exist!</error>
+server_1  | </results>
+server_1  | 
+server_1  | Closed database successfully: STOCK_MARKET
+
+---------------------------------For ./test.sh------------------------------------------------
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <created id="123456"/>
+    <created id="222222"/>
+    <created id="333333"/>
+    <error id="333333">Account creation failed</error>
+    <created sym="SPY" id="123456"/>
+    <created sym="SPY" id="222222"/>
+    <error sym="SPY" id="444444">Symbol creation failed</error>
+    <created sym="CP257" id="123456"/>
+    <created sym="CP257" id="333333"/>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="SPY" amount="300" limit="125" id="1"/>
+    <opened sym="SPY" amount="-100" limit="130" id="2"/>
+    <opened sym="SPY" amount="200" limit="127" id="3"/>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="SPY" amount="-500" limit="128" id="4"/>
+    <opened sym="SPY" amount="-200" limit="140" id="5"/>
+    <opened sym="SPY" amount="400" limit="125" id="6"/>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="SPY" amount="-400" limit="124" id="7"/>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <status id="1">
+        <open shares="100"/>
+        <executed shares="200" price="124" time="1680827127"/>
+    </status>
+    <status id="2">
+        <open shares="-100"/>
+    </status>
+    <error id="6">query trans id does not exist or account id and trans id do not match!</error>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <canceled id="1">
+        <canceled shares="100" time="1680827127"/>
+        <executed shares="200" price="124" time="1680827127"/>
+    </canceled>
+    <error id="4">cancel trans id has no open order or account id and trans id do not match!</error>
+    <error id="1">cancel trans id has no open order or account id and trans id do not match!</error>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <error id="2">query failed due to invalid account</error>
+    <error id="4">cancel failed due to invalid account</error>
+    <error sym="SPY" amount="400" limit="125">Account not valid</error>
+</results>
+
+Connected to vcm-32284.vm.duke.edu on port 12345
+Received: 
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <error sym="CP257" amount="-50" limit="128">Insufficient shares</error>
+    <error sym="CP257" amount="2" limit="128">Insufficient balance</error>
+    <opened sym="CP257" amount="-5" limit="128" id="8"/>
+    <error sym="XL" amount="-5" limit="128">Insufficient shares</error>
+    <error sym="XL" amount="1" limit="128">Symbol does not exist!</error>
+</results>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="123456">
+    <query id="1"/> <!--part open, part executed-->
+    <query id="2"/>
+    <query id="6"/> <!--error: trans id does not exist or account id and trans id do not match-->
+</transactions>

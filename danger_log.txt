@@ -1,0 +1,6 @@
+1. For received xml file, any kind of invalid format will result error.
+2. The server should no be closed when receiving an invalid xml request but only exit the thread handling it.
+3. Error maintaining method used in database is try and catch. If catch, the program exit when database error happens,
+   send back error msg when error is related to client's order.
+4. Database concurrency is guarded by positive lock.
+5. Server handling multiple clients' request using thread pool to limit the total number of threads.

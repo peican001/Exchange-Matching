@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=STOCK_MARKET
+    restart: always
+  server:
+    build: ./server
+    user:  root
+    volumes:
+      - ./server:/code
+    command: bash -c "./run.sh"
+    ports:
+      - "12345:12345"
+    expose:
+      - "12345"
+    depends_on:
+      - db
